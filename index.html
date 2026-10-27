@@ -1,210 +1,111 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#12345a">
-  <meta name="description" content="중소기업과 개인이 분쟁 상황을 이해하고, 기록을 정리하고, 전문가 상담을 준비하도록 돕는 무료 안내 도구입니다.">
-  <title>YULIM 함께하는 법률 길잡이</title>
-  <style>
-    :root {
-      --navy: #102b50;
-      --blue: #1765a0;
-      --blue-light: #eaf4fc;
-      --ink: #182638;
-      --muted: #627184;
-      --line: #dce5ee;
-      --surface: #ffffff;
-      --page: #f5f8fb;
-      --radius: 18px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-      color: var(--ink);
-      background: var(--page);
-      line-height: 1.6;
-    }
-    a { color: inherit; }
-    .wrap { width: min(1080px, calc(100% - 36px)); margin: 0 auto; }
-    header {
-      background: rgba(255,255,255,.96);
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      backdrop-filter: blur(12px);
-    }
-    .topbar { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { display: flex; align-items: center; text-decoration: none; min-width: 0; }
-    .brand img { display: block; width: 190px; max-width: 100%; height: auto; }
-    .top-note { color: var(--muted); font-size: 13px; text-align: right; }
-    .hero {
-      background: linear-gradient(125deg, #102b50 0%, #174f80 65%, #1765a0 100%);
-      color: white;
-      padding: 68px 0 62px;
-      overflow: hidden;
-      position: relative;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 380px; height: 380px; border: 1px solid rgba(255,255,255,.13);
-      border-radius: 50%; right: -100px; top: -170px;
-      box-shadow: 0 0 0 38px rgba(255,255,255,.035), 0 0 0 78px rgba(255,255,255,.025);
-      pointer-events: none;
-    }
-    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
-    .eyebrow { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #c7e4ff; font-weight: 700; }
-    h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.25; letter-spacing: -.04em; margin: 16px 0; }
-    .hero p { max-width: 690px; color: #e3effa; font-size: clamp(15px, 2vw, 18px); margin: 0; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; border-radius: 12px; padding: 12px 18px; font-weight: 700; text-decoration: none; border: 1px solid transparent; cursor: pointer; font: inherit; font-weight: 700; }
-    .btn-primary { background: white; color: var(--navy); }
-    .btn-outline { color: white; border-color: rgba(255,255,255,.5); background: transparent; }
-    main { padding: 44px 0 64px; }
-    .section-head { margin-bottom: 20px; }
-    .section-head h2 { font-size: clamp(22px, 3vw, 29px); margin: 0 0 6px; letter-spacing: -.03em; }
-    .section-head p { color: var(--muted); margin: 0; }
-    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .card {
-      display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
-      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 24px; min-height: 225px; box-shadow: 0 5px 18px rgba(18,52,90,.035);
-    }
-    .card-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--blue-light); color: var(--blue); font-size: 23px; }
-    .card h3 { margin: 0; font-size: 19px; }
-    .card p { margin: 0; color: var(--muted); font-size: 14px; flex: 1; }
-    .card a { color: var(--blue); font-weight: 700; text-decoration: none; font-size: 14px; }
-    .promise {
-      display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; align-items: center;
-      background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-top: 28px;
-    }
-    .promise h2 { margin: 0 0 8px; font-size: 23px; }
-    .promise p { margin: 0; color: var(--muted); }
-    .promise-list { display: grid; gap: 10px; }
-    .promise-item { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
-    .check { flex: 0 0 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-light); color: var(--blue); font-weight: 800; }
-    .notice { border-left: 4px solid #8da9c3; background: #edf3f8; color: #4e6073; padding: 16px 18px; border-radius: 0 12px 12px 0; margin-top: 24px; font-size: 13px; }
-    footer { background: #0c2039; color: #d6e1ed; padding: 28px 0; font-size: 13px; }
-    .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
-    footer strong { color: white; }
-    footer p { margin: 5px 0 0; color: #aebed0; }
-    .small-links { display: flex; gap: 14px; flex-wrap: wrap; }
-    .small-links a { color: #d6e1ed; }
-    @media (max-width: 760px) {
-      .wrap { width: min(100% - 28px, 600px); }
-      .topbar { min-height: 66px; }
-      .brand img { width: 150px; }
-      .top-note { font-size: 11px; max-width: 120px; }
-      .hero { padding: 48px 0 46px; }
-      .cards { grid-template-columns: 1fr; }
-      .card { min-height: 0; padding: 21px; }
-      .promise { grid-template-columns: 1fr; padding: 22px; }
-      .footer-inner { flex-direction: column; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#12345a">
+<meta name="description" content="YULIM 함께하는 법률 길잡이 - 분쟁 상황과 주요 사실을 스스로 정리하는 무료 도구">
+<title>YULIM 함께하는 법률 길잡이</title>
+<style>
+:root{--navy:#102b50;--blue:#1765a0;--pale:#eaf4fc;--ink:#182638;--muted:#627184;--line:#dce5ee;--page:#f5f8fb;--white:#fff;--green:#176b4d}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.6}
+.wrap{width:min(100% - 32px,1000px);margin:auto}header{background:white;border-bottom:1px solid var(--line)}.top{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:14px}.logo{width:180px;max-width:55%;height:auto}.tag{font-size:12px;color:var(--muted);text-align:right}
+.hero{background:linear-gradient(125deg,#102b50,#1765a0);color:white;padding:38px 0 34px}.eyebrow{color:#c7e4ff;font-size:12px;letter-spacing:.12em;font-weight:700}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.04em;margin:10px 0}.hero p{max-width:700px;color:#e3effa;margin:0}
+main{padding:28px 0 50px}.notice{background:#edf3f8;border-left:4px solid #8da9c3;padding:13px 15px;border-radius:0 10px 10px 0;color:#4e6073;font-size:13px;margin-bottom:22px}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 5px 18px rgba(18,52,90,.03)}h2{font-size:22px;margin:0 0 5px;letter-spacing:-.025em}.sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:14px;font-weight:700}input,select,textarea{width:100%;border:1px solid #cbd7e3;border-radius:10px;padding:11px 12px;font:inherit;font-size:15px;color:var(--ink);background:white}textarea{min-height:96px;resize:vertical}input:focus,select:focus,textarea:focus{outline:3px solid #d8ebfb;border-color:var(--blue)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:var(--pale);color:var(--navy)}.danger{background:#fff0f0;color:#9b2626}.status{font-size:13px;color:var(--green);margin-top:10px;min-height:20px}
+.saved{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:15px;margin-top:18px}.saved h3{font-size:17px;margin:0 0 10px}.saved p{margin:5px 0;font-size:14px;overflow-wrap:anywhere}.saved .empty{color:var(--muted)}
+footer{background:#0c2039;color:#d6e1ed;padding:24px 0;font-size:13px}footer p{color:#aebed0;margin:5px 0 0}
+@media(max-width:650px){.wrap{width:calc(100% - 24px)}.top{min-height:64px}.logo{width:145px}.hero{padding:30px 0}.panel{padding:17px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.actions .btn{flex:1}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap topbar">
-      <a class="brand" href="#" aria-label="YULIM 함께하는 법률 길잡이 홈">
-        <img src="yulim-logo.png" alt="YULIM Infotech Co., Ltd. 로고">
-      </a>
-      <div class="top-note">함께 준비하는 분쟁 대응의 첫걸음</div>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div class="eyebrow">YULIM Social Impact Project</div>
-      <h1>분쟁 앞에서<br>혼자 막막하지 않도록.</h1>
-      <p>내 상황을 이해하고, 기록을 정리하고, 다음 단계를 준비할 수 있도록 돕는 무료 안내 도구입니다. 법률 전문가와 상담하기 전에도 스스로 준비를 시작할 수 있습니다.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#tools">도움 도구 살펴보기 ↓</a>
-        <a class="btn btn-outline" href="#principles">프로젝트 취지 보기</a>
-      </div>
-    </div>
-  </section>
-
-  <main class="wrap">
-    <section id="tools">
-      <div class="section-head">
-        <h2>내 상황부터 차근차근 정리하기</h2>
-        <p>복잡한 분쟁도 작은 단계로 나누면 무엇을 확인해야 할지 보이기 시작합니다.</p>
-      </div>
-      <div class="cards">
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">▤</div>
-          <h3>사건 정리</h3>
-          <p>분쟁의 배경, 당사자, 주요 쟁점과 현재 상황을 한곳에 정리합니다.</p>
-          <a href="#coming-soon">준비 중인 기능 →</a>
-        </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">◷</div>
-          <h3>사건 연표</h3>
-          <p>언제 어떤 일이 있었고, 어떤 대응을 했는지 날짜순으로 기록합니다.</p>
-          <a href="#coming-soon">준비 중인 기능 →</a>
-        </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">▣</div>
-          <h3>증거 관리</h3>
-          <p>자료가 무엇을 보여주는지, 어떤 쟁점과 관련되는지 체계적으로 정리합니다.</p>
-          <a href="#coming-soon">준비 중인 기능 →</a>
-        </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">☑</div>
-          <h3>대응 체크리스트</h3>
-          <p>확인할 사항과 전문가에게 질문할 내용, 후속 업무를 관리합니다.</p>
-          <a href="#coming-soon">준비 중인 기능 →</a>
-        </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">↔</div>
-          <h3>주장과 근거 비교</h3>
-          <p>확인된 사실, 각 당사자의 주장, 근거와 미확인 사항을 구분합니다.</p>
-          <a href="#coming-soon">준비 중인 기능 →</a>
-        </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">▤</div>
-          <h3>상담 준비 자료</h3>
-          <p>전문가에게 전달할 사건 개요와 핵심 질문을 정리하는 것을 목표로 합니다.</p>
-          <a href="#coming-soon">준비 중인 기능 →</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="principles" class="promise">
-      <div>
-        <h2>도움이 먼저, 홍보는 자연스럽게.</h2>
-        <p>YULIM Infotech는 누구나 자신의 상황을 더 잘 이해하고, 필요한 도움을 준비할 수 있도록 이 프로젝트를 시작합니다. 기본 도구는 무료 제공을 목표로 하며, 사용자의 문제 해결을 우선합니다.</p>
-      </div>
-      <div class="promise-list">
-        <div class="promise-item"><span class="check">✓</span><span><strong>쉽게 이해하기</strong><br>복잡한 과정을 작은 단계로 나눕니다.</span></div>
-        <div class="promise-item"><span class="check">✓</span><span><strong>사실과 추론 구분하기</strong><br>확인된 내용과 추가 검토가 필요한 내용을 구별합니다.</span></div>
-        <div class="promise-item"><span class="check">✓</span><span><strong>전문가와 함께하기</strong><br>필요한 경우 변호사·법무사 등 자격 있는 전문가의 검토를 받도록 안내합니다.</span></div>
-      </div>
-    </section>
-
-    <div id="coming-soon" class="notice">
-      <strong>안내:</strong> 현재는 초기 시안입니다. 기능은 순차적으로 추가될 예정입니다. 이 웹사이트는 법률사무소가 아니며, 개별 사건에 대한 법률 자문이나 소송 대리를 제공하지 않습니다. 법정 기한과 구체적인 대응은 공식 안내 및 담당 전문가를 통해 반드시 확인하세요. 초기 버전에는 실제 사건의 개인정보나 기밀자료를 입력하지 마세요.
-    </div>
-  </main>
-
-  <footer>
-    <div class="wrap footer-inner">
-      <div>
-        <strong>YULIM 함께하는 법률 길잡이</strong>
-        <p>YULIM Infotech Co., Ltd. · 사회공헌 프로젝트 시안</p>
-        <p>© YULIM Infotech. 기본 기능 무료 제공을 목표로 합니다.</p>
-      </div>
-      <div class="small-links">
-        <a href="#tools">도움 도구</a>
-        <a href="#principles">프로젝트 취지</a>
-        <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">맨 위로 ↑</a>
-      </div>
-    </div>
-  </footer>
+<header><div class="wrap top"><a href="#" aria-label="홈"><img class="logo" src="yulim-logo.png" alt="YULIM Infotech 로고"></a><div class="tag">기본 기능 무료 제공을 목표로 합니다</div></div></header>
+<section class="hero"><div class="wrap"><div class="eyebrow">YULIM SOCIAL IMPACT PROJECT</div><h1>분쟁 앞에서<br>혼자 막막하지 않도록.</h1><p>내 상황을 이해하고, 주요 사실을 정리하고, 전문가와 상담할 준비를 시작하세요.</p></div></section>
+<main class="wrap">
+<div class="notice"><strong>개인정보 안내:</strong> 이 초기 버전은 입력 내용을 현재 사용 중인 브라우저에만 저장합니다. 다른 기기와 자동 동기화되지 않으며, 브라우저 데이터 삭제 시 기록이 사라질 수 있습니다. 실제 사건의 개인정보·기밀자료를 입력하기 전에 보안과 백업을 충분히 검토하세요. 이 도구는 법률 자문이나 소송 대리를 제공하지 않습니다.</div>
+<section class="panel">
+<h2>1. 사건 기본정보</h2><p class="sub">지금 알고 있는 내용부터 작성하세요. 모르는 항목은 비워 두어도 됩니다.</p>
+<form id="caseForm">
+<div class="grid">
+<div class="field"><label for="caseName">사건 이름(별칭)</label><input id="caseName" placeholder="예: 거래대금 분쟁 A" maxlength="100"></div>
+<div class="field"><label for="caseType">분쟁 유형</label><select id="caseType"><option value="">선택하세요</option><option>계약·거래 분쟁</option><option>대금·정산 분쟁</option><option>업무·용역 분쟁</option><option>지식재산·특허 관련</option><option>고용·임원 관련</option><option>기타</option></select></div>
+<div class="field"><label for="stage">현재 진행 단계</label><select id="stage"><option value="">선택하세요</option><option>분쟁 발생 전·예방</option><option>상대방과 협의 중</option><option>내용증명·공문 단계</option><option>민사소송 진행 중</option><option>판결 이후 불복 절차 검토·진행</option><option>형사절차 진행 중</option><option>기타·잘 모르겠음</option></select></div>
+<div class="field"><label for="updated">마지막으로 확인한 날짜</label><input id="updated" type="date"></div>
+<div class="field full"><label for="summary">무슨 일이 있었나요?</label><textarea id="summary" placeholder="핵심 경과를 간단히 적어 보세요." maxlength="5000"></textarea></div>
+<div class="field full"><label for="ourPosition">우리 측 입장·확인하고 싶은 점</label><textarea id="ourPosition" placeholder="확인된 사실과 내 생각을 구분해 적어 보세요." maxlength="5000"></textarea></div>
+<div class="field full"><label for="unknowns">아직 확인되지 않은 사항</label><textarea id="unknowns" placeholder="자료가 더 필요하거나 전문가에게 물어볼 내용을 적으세요." maxlength="3000"></textarea></div>
+</div>
+<div class="actions"><button class="btn primary" type="submit">이 브라우저에 저장</button><button class="btn secondary" type="button" id="exportBtn">백업 파일 내려받기</button><button class="btn danger" type="button" id="clearBtn">이 브라우저 기록 삭제</button></div>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+</form>
+<div class="saved" id="savedView"><h3>저장된 사건 개요</h3><p class="empty">아직 저장된 내용이 없습니다. 위 양식을 작성하고 저장해 보세요.</p></div>
+</section>
+<section class="panel"><h2>다음에 추가할 기능</h2><p class="sub">사건 기본정보를 먼저 시험한 뒤, 아래 기능을 순서대로 개발합니다.</p>
+<div class="grid">
+<div><strong>2. 사건 연표</strong><div class="sub">날짜별 주요 사건과 대응 기록</div></div>
+<div><strong>3. 증거 관리표</strong><div class="sub">자료, 관련 쟁점, 입증하려는 사실 정리</div></div>
+<div><strong>4. 대응 체크리스트</strong><div class="sub">확인할 사항과 전문가 질문 관리</div></div>
+<div><strong>5. 상담 자료 출력</strong><div class="sub">사건 개요와 질문 목록을 문서로 정리</div></div>
+</div></section>
+</main>
+<footer><div class="wrap"><strong>YULIM 함께하는 법률 길잡이</strong><p>YULIM Infotech · 사회공헌 프로젝트 초기 버전</p><p>기본 기능 무료 제공을 목표로 합니다.</p></div></footer>
+<script>
+(() => {
+  const KEY = "yulimLegalGuide.case.v1";
+  const fields = ["caseName","caseType","stage","updated","summary","ourPosition","unknowns"];
+  const form = document.getElementById("caseForm");
+  const status = document.getElementById("status");
+  const savedView = document.getElementById("savedView");
+  const readForm = () => Object.fromEntries(fields.map(id => [id, document.getElementById(id).value]));
+  const writeForm = data => fields.forEach(id => document.getElementById(id).value = data[id] || "");
+  const prettyDate = value => value || "미입력";
+  function render(data) {
+    if (!data) {
+      savedView.innerHTML = '<h3>저장된 사건 개요</h3><p class="empty">아직 저장된 내용이 없습니다. 위 양식을 작성하고 저장해 보세요.</p>';
+      return;
+    }
+    const rows = [
+      ["사건 이름", data.caseName], ["분쟁 유형", data.caseType], ["진행 단계", data.stage],
+      ["확인 날짜", prettyDate(data.updated)], ["사건 경과", data.summary],
+      ["우리 측 입장·질문", data.ourPosition], ["미확인 사항", data.unknowns]
+    ];
+    savedView.replaceChildren();
+    const h = document.createElement("h3"); h.textContent = "저장된 사건 개요"; savedView.appendChild(h);
+    rows.forEach(([label, value]) => {
+      const p = document.createElement("p");
+      const strong = document.createElement("strong"); strong.textContent = label + ": ";
+      p.appendChild(strong); p.appendChild(document.createTextNode(value || "미입력")); savedView.appendChild(p);
+    });
+  }
+  function getSaved() {
+    try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch { return null; }
+  }
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const data = readForm();
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      render(data); status.textContent = "이 브라우저에 저장했습니다. 백업 파일도 별도로 내려받아 보관하세요.";
+    } catch {
+      status.textContent = "저장하지 못했습니다. 브라우저의 저장 설정을 확인하세요.";
+    }
+  });
+  document.getElementById("exportBtn").addEventListener("click", () => {
+    const data = readForm();
+    const blob = new Blob([JSON.stringify({app:"YULIM 함께하는 법률 길잡이",version:1,exportedAt:new Date().toISOString(),case:data}, null, 2)], {type:"application/json;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = "yulim-case-backup.json"; a.click();
+    URL.revokeObjectURL(url); status.textContent = "현재 입력한 내용을 백업 파일로 내려받았습니다.";
+  });
+  document.getElementById("clearBtn").addEventListener("click", () => {
+    if (!confirm("이 브라우저에 저장된 사건 개요를 삭제할까요? 내려받은 백업 파일은 별도로 삭제해야 합니다.")) return;
+    localStorage.removeItem(KEY); form.reset(); render(null); status.textContent = "이 브라우저의 저장 내용을 삭제했습니다.";
+  });
+  const existing = getSaved();
+  if (existing) { writeForm(existing); render(existing); }
+})();
+</script>
 </body>
 </html>
