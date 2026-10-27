@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12345a">
+  <meta name="description" content="중소기업과 개인이 분쟁 상황을 이해하고, 기록을 정리하고, 전문가 상담을 준비하도록 돕는 무료 안내 도구입니다.">
+  <title>YULIM 함께하는 법률 길잡이</title>
+  <style>
+    :root {
+      --navy: #102b50;
+      --blue: #1765a0;
+      --blue-light: #eaf4fc;
+      --ink: #182638;
+      --muted: #627184;
+      --line: #dce5ee;
+      --surface: #ffffff;
+      --page: #f5f8fb;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      color: var(--ink);
+      background: var(--page);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1080px, calc(100% - 36px)); margin: 0 auto; }
+    header {
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(12px);
+    }
+    .topbar { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; text-decoration: none; min-width: 0; }
+    .brand img { display: block; width: 190px; max-width: 100%; height: auto; }
+    .top-note { color: var(--muted); font-size: 13px; text-align: right; }
+    .hero {
+      background: linear-gradient(125deg, #102b50 0%, #174f80 65%, #1765a0 100%);
+      color: white;
+      padding: 68px 0 62px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 380px; height: 380px; border: 1px solid rgba(255,255,255,.13);
+      border-radius: 50%; right: -100px; top: -170px;
+      box-shadow: 0 0 0 38px rgba(255,255,255,.035), 0 0 0 78px rgba(255,255,255,.025);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+    .eyebrow { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #c7e4ff; font-weight: 700; }
+    h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.25; letter-spacing: -.04em; margin: 16px 0; }
+    .hero p { max-width: 690px; color: #e3effa; font-size: clamp(15px, 2vw, 18px); margin: 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; border-radius: 12px; padding: 12px 18px; font-weight: 700; text-decoration: none; border: 1px solid transparent; cursor: pointer; font: inherit; font-weight: 700; }
+    .btn-primary { background: white; color: var(--navy); }
+    .btn-outline { color: white; border-color: rgba(255,255,255,.5); background: transparent; }
+    main { padding: 44px 0 64px; }
+    .section-head { margin-bottom: 20px; }
+    .section-head h2 { font-size: clamp(22px, 3vw, 29px); margin: 0 0 6px; letter-spacing: -.03em; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .card {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 24px; min-height: 225px; box-shadow: 0 5px 18px rgba(18,52,90,.035);
+    }
+    .card-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--blue-light); color: var(--blue); font-size: 23px; }
+    .card h3 { margin: 0; font-size: 19px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; flex: 1; }
+    .card a { color: var(--blue); font-weight: 700; text-decoration: none; font-size: 14px; }
+    .promise {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; align-items: center;
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-top: 28px;
+    }
+    .promise h2 { margin: 0 0 8px; font-size: 23px; }
+    .promise p { margin: 0; color: var(--muted); }
+    .promise-list { display: grid; gap: 10px; }
+    .promise-item { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+    .check { flex: 0 0 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-light); color: var(--blue); font-weight: 800; }
+    .notice { border-left: 4px solid #8da9c3; background: #edf3f8; color: #4e6073; padding: 16px 18px; border-radius: 0 12px 12px 0; margin-top: 24px; font-size: 13px; }
+    footer { background: #0c2039; color: #d6e1ed; padding: 28px 0; font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+    footer strong { color: white; }
+    footer p { margin: 5px 0 0; color: #aebed0; }
+    .small-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .small-links a { color: #d6e1ed; }
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 28px, 600px); }
+      .topbar { min-height: 66px; }
+      .brand img { width: 150px; }
+      .top-note { font-size: 11px; max-width: 120px; }
+      .hero { padding: 48px 0 46px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 0; padding: 21px; }
+      .promise { grid-template-columns: 1fr; padding: 22px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <a class="brand" href="#" aria-label="YULIM 함께하는 법률 길잡이 홈">
+        <img src="yulim-logo.png" alt="YULIM Infotech Co., Ltd. 로고">
+      </a>
+      <div class="top-note">함께 준비하는 분쟁 대응의 첫걸음</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="eyebrow">YULIM Social Impact Project</div>
+      <h1>분쟁 앞에서<br>혼자 막막하지 않도록.</h1>
+      <p>내 상황을 이해하고, 기록을 정리하고, 다음 단계를 준비할 수 있도록 돕는 무료 안내 도구입니다. 법률 전문가와 상담하기 전에도 스스로 준비를 시작할 수 있습니다.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tools">도움 도구 살펴보기 ↓</a>
+        <a class="btn btn-outline" href="#principles">프로젝트 취지 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section id="tools">
+      <div class="section-head">
+        <h2>내 상황부터 차근차근 정리하기</h2>
+        <p>복잡한 분쟁도 작은 단계로 나누면 무엇을 확인해야 할지 보이기 시작합니다.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">▤</div>
+          <h3>사건 정리</h3>
+          <p>분쟁의 배경, 당사자, 주요 쟁점과 현재 상황을 한곳에 정리합니다.</p>
+          <a href="#coming-soon">준비 중인 기능 →</a>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">◷</div>
+          <h3>사건 연표</h3>
+          <p>언제 어떤 일이 있었고, 어떤 대응을 했는지 날짜순으로 기록합니다.</p>
+          <a href="#coming-soon">준비 중인 기능 →</a>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">▣</div>
+          <h3>증거 관리</h3>
+          <p>자료가 무엇을 보여주는지, 어떤 쟁점과 관련되는지 체계적으로 정리합니다.</p>
+          <a href="#coming-soon">준비 중인 기능 →</a>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">☑</div>
+          <h3>대응 체크리스트</h3>
+          <p>확인할 사항과 전문가에게 질문할 내용, 후속 업무를 관리합니다.</p>
+          <a href="#coming-soon">준비 중인 기능 →</a>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">↔</div>
+          <h3>주장과 근거 비교</h3>
+          <p>확인된 사실, 각 당사자의 주장, 근거와 미확인 사항을 구분합니다.</p>
+          <a href="#coming-soon">준비 중인 기능 →</a>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">▤</div>
+          <h3>상담 준비 자료</h3>
+          <p>전문가에게 전달할 사건 개요와 핵심 질문을 정리하는 것을 목표로 합니다.</p>
+          <a href="#coming-soon">준비 중인 기능 →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="principles" class="promise">
+      <div>
+        <h2>도움이 먼저, 홍보는 자연스럽게.</h2>
+        <p>YULIM Infotech는 누구나 자신의 상황을 더 잘 이해하고, 필요한 도움을 준비할 수 있도록 이 프로젝트를 시작합니다. 기본 도구는 무료 제공을 목표로 하며, 사용자의 문제 해결을 우선합니다.</p>
+      </div>
+      <div class="promise-list">
+        <div class="promise-item"><span class="check">✓</span><span><strong>쉽게 이해하기</strong><br>복잡한 과정을 작은 단계로 나눕니다.</span></div>
+        <div class="promise-item"><span class="check">✓</span><span><strong>사실과 추론 구분하기</strong><br>확인된 내용과 추가 검토가 필요한 내용을 구별합니다.</span></div>
+        <div class="promise-item"><span class="check">✓</span><span><strong>전문가와 함께하기</strong><br>필요한 경우 변호사·법무사 등 자격 있는 전문가의 검토를 받도록 안내합니다.</span></div>
+      </div>
+    </section>
+
+    <div id="coming-soon" class="notice">
+      <strong>안내:</strong> 현재는 초기 시안입니다. 기능은 순차적으로 추가될 예정입니다. 이 웹사이트는 법률사무소가 아니며, 개별 사건에 대한 법률 자문이나 소송 대리를 제공하지 않습니다. 법정 기한과 구체적인 대응은 공식 안내 및 담당 전문가를 통해 반드시 확인하세요. 초기 버전에는 실제 사건의 개인정보나 기밀자료를 입력하지 마세요.
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <strong>YULIM 함께하는 법률 길잡이</strong>
+        <p>YULIM Infotech Co., Ltd. · 사회공헌 프로젝트 시안</p>
+        <p>© YULIM Infotech. 기본 기능 무료 제공을 목표로 합니다.</p>
+      </div>
+      <div class="small-links">
+        <a href="#tools">도움 도구</a>
+        <a href="#principles">프로젝트 취지</a>
+        <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">맨 위로 ↑</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
